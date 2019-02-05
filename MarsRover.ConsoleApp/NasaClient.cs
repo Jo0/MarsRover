@@ -34,12 +34,12 @@ namespace MarsRover.ConsoleApp
                 manifest = JsonConvert.DeserializeObject<RoverManifest>(responseContent);
             }
 
-            return manifest; //TODO: return something more acceptable when receiving a response other than 
+            return manifest; //TODO: handle when request is not successful in a better way
         }
 
-        public async Task<List<RoverManifest>> GetAllRoverManifests()
+        public async Task<Dictionary<string,RoverManifest>> GetAllRoverManifests()
         {
-            List<RoverManifest> roverManifests = new List<RoverManifest>();
+            Dictionary<string, RoverManifest> roverManifests = new Dictionary<string, RoverManifest>();
 
             foreach (var rover in _rovers)
             {
@@ -47,7 +47,7 @@ namespace MarsRover.ConsoleApp
 
                 if(manifest != null)
                 {
-                    roverManifests.Add(manifest);
+                    roverManifests.Add(rover, manifest);
                 }
             }
 
@@ -58,7 +58,16 @@ namespace MarsRover.ConsoleApp
         {
             RoverPhotoPage photoPage = null;
 
-            var response = await _client.GetAsync($"https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?api_key={_apiKey}")
+            var response = await _client.GetAsync($"https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={date.ToString("yyyy-M-d")}page={page}&api_key={_apiKey}");
+
+            if(response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                photoPage = JsonConvert.DeserializeObject<RoverPhotoPage>(responseContent);
+            }
+
+            return photoPage; //TODO: handle when request is not successful in a better way
         }
     }
 

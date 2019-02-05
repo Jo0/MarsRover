@@ -2,17 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using MarsRover.ConsoleApp.Models;
 
 namespace MarsRover.ConsoleApp
 {
     public class FileHandler
     {
-        public FileHandler()
-        {
-
-        }
-
-        public List<DateTime> ReadDatesFromFile(Stream stream)
+        public static List<DateTime> ReadDatesFromFile(Stream stream)
         {
             List<DateTime> parsedDates = new List<DateTime>();
 
@@ -26,7 +22,7 @@ namespace MarsRover.ConsoleApp
                     {
                         DateTime parsedDate = DateTime.Parse(line);
 
-                        Console.WriteLine($"Parse {line} to {parsedDate}");
+                        //Console.WriteLine($"Parse {line} to {parsedDate}");
 
                         parsedDates.Add(parsedDate);
                     }
@@ -38,6 +34,11 @@ namespace MarsRover.ConsoleApp
             }
 
             return parsedDates;
+        }
+
+        public static void WriteRoverPhotoPagesToJson(Dictionary<string, Dictionary<DateTime,List<RoverPhotoPage>>> roverPhotoPage)
+        {
+
         }
     }
 }
