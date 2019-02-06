@@ -6,7 +6,7 @@ This console application pulls images taken by all rovers by calling the NASA Ma
 
 * .Net Core SDK 2.2
 
-### Process
+### How It Works
 1. Reads `input.txt` from the same directory the executable is in
 
    * `input.txt` is expected to have line separated date strings
@@ -15,9 +15,10 @@ This console application pulls images taken by all rovers by calling the NASA Ma
 
 2. Retrieve rover manifest for `curiosity`, `opportunity`, `spirit`
 
-    * Rover manifest is used primarily for the `Landing Date` and `Recent Photo Date`
+    * Rover manifest is used primarily for the `Landing Date` and `Recent Photo Date` properties
 
-3. For each rover and each date that was parsed from the input file, retrieve photo pages corresponding to the rover and date
+
+3. For each rover and each date that was parsed from the input file, retrieve photo pages corresponding to the rover and date (if input date )
    
    * By default, application will only retrieve the first photo page
    * To retrieve more than one photo page, modify `numOfPagesToRequest` in `appsettings.json` to value >= 0
