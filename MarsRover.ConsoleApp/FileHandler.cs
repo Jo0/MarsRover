@@ -28,9 +28,9 @@ namespace MarsRover.ConsoleApp
 
                         parsedDates.Add(parsedDate);
                     }
-                    catch(Exception ex)
+                    catch
                     {
-                        Console.WriteLine($"Invalid date format for {line}");
+                        Console.WriteLine($"\tInvalid date format for {line}");
                     }
                 }
             }

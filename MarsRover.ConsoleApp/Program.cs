@@ -26,7 +26,7 @@ namespace MarsRover.ConsoleApp
             {
                 FileStream file = new FileStream(inputFilePath, FileMode.Open);
 
-                Console.WriteLine("Reading dates from input file.\n");
+                Console.WriteLine("Reading dates from input file.");
 
                 List<DateTime> inputDates = FileHandler.ReadDatesFromFile(file);
 
