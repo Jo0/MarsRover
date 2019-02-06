@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using MarsRover.ConsoleApp.Models;
+using Newtonsoft.Json;
 
 namespace MarsRover.ConsoleApp
 {
@@ -38,7 +40,9 @@ namespace MarsRover.ConsoleApp
 
         public static void WriteRoverPhotoPagesToJson(Dictionary<string, Dictionary<DateTime,List<RoverPhotoPage>>> roverPhotoPage)
         {
+            string outputFilePath = Path.Combine(Directory.GetCurrentDirectory(), "output.json");
 
+            Task.Run(() => File.WriteAllTextAsync(outputFilePath,JsonConvert.SerializeObject(roverPhotoPage)));
         }
     }
 }
