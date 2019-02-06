@@ -1,6 +1,8 @@
 ## Mars Rover
 
-This console application pulls images taken by all rovers by calling the NASA Mars Rover Photo API.
+This .NET Core console application pulls images taken by all rovers on a given date by calling the NASA Mars Rover Photo API.
+
+This application is not limited to a Windows environment. You will be able to build this for OSX, Linux, and ARM envrionments.
 
 ### Dependencies
 
