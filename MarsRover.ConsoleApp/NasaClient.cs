@@ -82,6 +82,11 @@ namespace MarsRover.ConsoleApp
                     {
                         for(int i = 0; i < 10; i++)
                         {
+                            if(i > photoPage.Photos.Count - 1)
+                            {
+                                break;
+                            }
+
                             RoverPhoto photo = photoPage.Photos[i];
                             string destinationDirectory = Path.Combine(destinationPath, "Photos", rover, date.ToString("MM-dd-yyyy"));
 
