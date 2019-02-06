@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace MarsRover.ConsoleApp
@@ -63,26 +64,15 @@ namespace MarsRover.ConsoleApp
                     Console.WriteLine();
                 }
 
-                Console.WriteLine("Writing to output.json");
+                Console.WriteLine("Download photos");
+                nasaClient.DownloadImagesForRovers(roverPhotoPages, Directory.GetCurrentDirectory());
+                Console.WriteLine("Done.");
+
+                Console.WriteLine("Writing Rover Photo Pages to output.json");
                 FileHandler.WriteRoverPhotoPagesToJson(roverPhotoPages);
                 Console.WriteLine("Done.\n");
-            }
-
-            string htmlFilePath = Path.Combine(Directory.GetCurrentDirectory(), "View", "index.html");
-
-            if (File.Exists(htmlFilePath))
-            {
-                Console.WriteLine("Viewing output through browser....\n");
-                try
-                {
-                    Process.Start(htmlFilePath);
-                }
-                catch
-                {
-                    Console.WriteLine($"Error opening {htmlFilePath}\n");
-                }
-            }
-
+            }          
+            
             Console.WriteLine("Enter key to exit.");
             Console.ReadLine();
         }

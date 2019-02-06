@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -68,6 +69,74 @@ namespace MarsRover.ConsoleApp
             }
 
             return photoPage; //TODO: handle when request is not successful in a better way
+        }
+
+        public void DownloadImagesForRovers(Dictionary<string, Dictionary<DateTime, List<RoverPhotoPage>>> roverPhotoPages, string destinationPath)
+        {
+            foreach(var rover in roverPhotoPages.Keys)
+            {
+                Console.WriteLine($"\tFor {rover}");
+                foreach(var date in roverPhotoPages[rover].Keys)
+                {
+                    foreach(var photoPage in roverPhotoPages[rover][date])
+                    {
+                        for(int i = 0; i < 10; i++)
+                        {
+                            RoverPhoto photo = photoPage.Photos[i];
+                            string destinationDirectory = Path.Combine(destinationPath, "Photos", rover, date.ToString("dd-MM-yyyy"));
+
+                            if (!Directory.Exists(destinationDirectory))
+                            {
+                                Directory.CreateDirectory(destinationDirectory);
+                            }
+
+                            var success = DownloadFile(photo.ImageUrl, destinationDirectory);
+
+                            if (success)
+                            {
+                                Console.WriteLine($"\t\tSuccessfully downloaded {photo.ImageUrl}");
+                            }
+                            else
+                            {
+                                Console.WriteLine($"\t\tFailed to download {photo.ImageUrl}");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public bool DownloadFile(string sourceUrl, string destinationPath)
+        {
+            string fileName = sourceUrl.Substring(sourceUrl.LastIndexOf('/') + 1); //create file name from source(url) 
+
+            string destinationFilePath = Path.Combine(destinationPath, fileName); //create path with temp tir and filename
+
+            DownloadFileAsync(sourceUrl, destinationFilePath).Wait();
+
+            if (File.Exists(destinationFilePath))
+            {
+                return true;
+
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private async Task DownloadFileAsync(string source, string destinationPath)
+        {
+
+            //source being source image url
+            //destination was path we made from image name from url and temp dir
+            using (var request = new HttpRequestMessage(HttpMethod.Get, source))
+            using (Stream contentStream = await
+                (await _client.SendAsync(request)).Content.ReadAsStreamAsync(),
+                        stream = new FileStream(destinationPath, FileMode.OpenOrCreate, FileAccess.Write))
+            {
+                await contentStream.CopyToAsync(stream);
+            }
         }
     }
 

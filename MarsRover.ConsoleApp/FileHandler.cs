@@ -43,6 +43,6 @@ namespace MarsRover.ConsoleApp
             string outputFilePath = Path.Combine(Directory.GetCurrentDirectory(), "output.json");
 
             Task.Run(() => File.WriteAllTextAsync(outputFilePath,JsonConvert.SerializeObject(roverPhotoPage)));
-        }
+        }        
     }
 }
