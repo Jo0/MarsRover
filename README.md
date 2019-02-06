@@ -2,6 +2,10 @@
 
 This console application pulls images taken by all rovers by calling the NASA Mars Rover Photo API.
 
+### Dependencies
+
+* .Net Core SDK 2.2
+
 ### Process
 1. Reads `input.txt` from the same directory the executable is in
 
