@@ -78,6 +78,7 @@ namespace MarsRover.ConsoleApp
                 Console.WriteLine($"\tFor {rover}");
                 foreach(var date in roverPhotoPages[rover].Keys)
                 {
+                    Console.WriteLine($"\t\t for date {date.ToShortDateString()}");
                     foreach(var photoPage in roverPhotoPages[rover][date])
                     {
                         for(int i = 0; i < 10; i++)
@@ -99,7 +100,7 @@ namespace MarsRover.ConsoleApp
 
                             if (success)
                             {
-                                Console.WriteLine($"\t\tSuccessfully downloaded {photo.ImageUrl}");
+                                Console.WriteLine($"\t\t\tSuccessfully downloaded {photo.ImageUrl}");
                             }
                             else
                             {
