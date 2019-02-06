@@ -4,7 +4,19 @@ This console application pulls images taken by all rovers by calling the NASA Ma
 
 ### Dependencies
 
-* .Net Core SDK 2.2
+* .Net Core SDK 2.2 ([Download Here](https://dotnet.microsoft.com/download))
+
+### Build
+
+* From Visual Studio
+  * Open `MarsRover.sln`
+  * Build
+  * Debug/Run
+* From CLI
+  * `cd` to `MarsRover` directory
+  * `dotnet restore`
+  * `dotnet build`
+  * `dotnet run`
 
 ### How It Works
 1. Reads `input.txt` from the same directory the executable is in
@@ -16,7 +28,6 @@ This console application pulls images taken by all rovers by calling the NASA Ma
 2. Retrieve rover manifest for `curiosity`, `opportunity`, `spirit`
 
     * Rover manifest is used primarily for the `Landing Date` and `Recent Photo Date` properties
-
 
 3. For each rover and each date that was parsed from the input file, retrieve photo pages corresponding to the rover and date (if input date )
    
