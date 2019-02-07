@@ -21,6 +21,7 @@ This application is not limited to a Windows environment. You will be able to bu
   * `dotnet run`
 
 ### How It Works
+#### MarsRover.Console
 1. Reads `input.txt` from the same directory the executable is in
 
    * `input.txt` is expected to have line separated date strings
