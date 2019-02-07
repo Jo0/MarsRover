@@ -37,25 +37,25 @@ namespace MarsRover.ConsoleApp
 
                 Console.WriteLine("Getting rover manifests.");
 
-                Dictionary<string,RoverManifest> roverManifests = Task.Run(() => nasaClient.GetAllRoverManifests()).Result;
+                Dictionary<string, RoverManifest> roverManifests = Task.Run(() => nasaClient.GetAllRoverManifests()).Result;
 
                 Console.WriteLine("Done.\n");
 
                 Dictionary<string, Dictionary<DateTime, List<RoverPhotoPage>>> roverPhotoPages = InitializeRoverPhotoPages(roverManifests, inputDates);
 
                 Console.WriteLine("Begin fetching photos");
-                foreach(var rover in roverManifests)
+                foreach (var rover in roverManifests)
                 {
                     Console.WriteLine($"\tFetch photos for {rover.Key}");
-                    foreach(var date in inputDates)
+                    foreach (var date in inputDates)
                     {
                         Console.WriteLine($"\t\t\tat {date.ToShortDateString()}");
-                        if(date >= rover.Value.PhotoManifest.LandingDate && date <= rover.Value.PhotoManifest.RecentPhotoDate)
+                        if (date >= rover.Value.PhotoManifest.LandingDate && date <= rover.Value.PhotoManifest.RecentPhotoDate)
                         {
-                            for(int i = 1; i <= pagesToRequest; i++)
+                            for (int i = 1; i <= pagesToRequest; i++)
                             {
                                 Console.WriteLine($"\t\t\t\tPage {i}");
-                                RoverPhotoPage photoPage = Task.Run(() => nasaClient.GetRoverPhotoPage(rover.Key,date,i)).Result;
+                                RoverPhotoPage photoPage = Task.Run(() => nasaClient.GetRoverPhotoPage(rover.Key, date, i)).Result;
                                 roverPhotoPages[rover.Key][date].Add(photoPage);
                             }
                         }
@@ -70,8 +70,8 @@ namespace MarsRover.ConsoleApp
                 Console.WriteLine("Writing Rover Photo Pages to output.json");
                 FileHandler.WriteRoverPhotoPagesToJson(roverPhotoPages);
                 Console.WriteLine("Done.\n");
-            }          
-            
+            }
+
             Console.WriteLine("Enter key to exit.");
             Console.ReadLine();
         }
@@ -80,12 +80,21 @@ namespace MarsRover.ConsoleApp
         {
             try
             {
-                return Int32.Parse(configValue);
+                int parsedInt = Int32.Parse(configValue);
+                
+                if (parsedInt > 0)
+                {
+                    return parsedInt;
+                }
+                else
+                {
+                    return 1;
+                }
             }
             catch
             {
                 return 1;
-            }          
+            }
         }
 
         public static Dictionary<string, Dictionary<DateTime, List<RoverPhotoPage>>> InitializeRoverPhotoPages(Dictionary<string, RoverManifest> roverManifests, List<DateTime> inputDates)
@@ -103,6 +112,6 @@ namespace MarsRover.ConsoleApp
             }
 
             return roverPhotoPages;
-        }        
+        }
     }
 }

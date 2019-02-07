@@ -23,7 +23,7 @@ namespace MarsRover.Core
                     {
                         DateTime parsedDate = DateTime.Parse(line);
 
-                        //Console.WriteLine($"Parse {line} to {parsedDate}");
+                        Console.WriteLine($"Parse {line} to {parsedDate}");
 
                         parsedDates.Add(parsedDate);
                     }

@@ -22,24 +22,34 @@ This application is not limited to a Windows environment. You will be able to bu
 
 ### How It Works
 #### MarsRover.Console
-1. Reads `input.txt` from the same directory the executable is in
-
-   * `input.txt` is expected to have line separated date strings
-   * To change the input file name, modify `inputFileName` in `appsettings.json` to the desired file name
-      * The file must still reside in the same directory as the executable.
+1. Read in input file
+    1. Read input file name from `appsettings.json`
+        * Default to `input.txt`
+        * Assumptions
+            * file is in same directory as executable
+            * file consists of line seperated date string
+    2. Parse dates in each line and persist
 
 2. Retrieve rover manifest for `curiosity`, `opportunity`, `spirit`
 
     * Rover manifest is used primarily for the `Landing Date` and `Recent Photo Date` properties
 
-3. For each rover and each date that was parsed from the input file, retrieve photo pages corresponding to the rover and date (if input date )
-   
-   * By default, application will only retrieve the first photo page
-   * To retrieve more than one photo page, modify `numOfPagesToRequest` in `appsettings.json` to value >= 0
+3. Retrieve photo pages
+    * For each rover
+        * For each date parsed from input file
+            1. Check if `Landing Date` <= parsed input date >= `Recent Photo Date`
+            2. Retrieve `numOfPagesToRequest` photo pages.
+                * Configurable from `appsettings.json`
+                * Default to 1
 
-4. For each rover, each date, and each page the application will download the first 10 images to the `{executable_dir}/Photos/{rover_name}/{date}/` directory
+4. Download photos
+    * For each rover
+        * For each date
+            * For each photo page
+                * Download the first 10 images to the `{executable_dir}/Photos/{rover_name}/{date}/` directory
 
-5. Serialize the photo pages by rover and write to `{executable_dir}/output.json` 
+5. Write photo pages to json
+    * Serialize the photo pages by rover and write to `{executable_dir}/output.json` 
    
 
 
