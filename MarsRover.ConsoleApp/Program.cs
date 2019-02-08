@@ -1,4 +1,4 @@
-﻿using MarsRover.Core;
+﻿using MarsRover.Core.Console;
 using MarsRover.Core.Models;
 using Microsoft.Extensions.Configuration;
 using System;

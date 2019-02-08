@@ -6,7 +6,7 @@ using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
-namespace MarsRover.Core
+namespace MarsRover.Core.Console
 {
     public class NasaClient
     {

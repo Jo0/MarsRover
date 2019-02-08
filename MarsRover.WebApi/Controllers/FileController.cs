@@ -3,7 +3,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MarsRover.Core;
+using MarsRover.Core.Console; //TODO: Create WebApi Namespace
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 

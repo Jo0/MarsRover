@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace MarsRover.Core
+namespace MarsRover.Core.Console
 {
     public class FileHandler
     {

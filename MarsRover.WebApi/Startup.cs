@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using MarsRover.WebApi.Repository.EntityModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -27,6 +29,10 @@ namespace MarsRover.WebApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
+            services.AddDbContext<MarsRoverContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("MarsRoverDb"))
+                );
+
             services.AddCors(options =>
             {
                 options.AddPolicy("All",
@@ -36,7 +42,7 @@ namespace MarsRover.WebApi
                         builder.AllowAnyHeader();
                         builder.AllowAnyMethod();
                     });
-            });
+            });            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -59,6 +65,12 @@ namespace MarsRover.WebApi
             
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<MarsRoverContext>();
+                    context.Database.EnsureCreated();
+            }
         }
     }
 }
