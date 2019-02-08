@@ -23,13 +23,13 @@ namespace MarsRover.Core.Console
                     {
                         DateTime parsedDate = DateTime.Parse(line);
 
-                        Console.WriteLine($"Parse {line} to {parsedDate}");
+                        System.Console.WriteLine($"Parse {line} to {parsedDate}");
 
                         parsedDates.Add(parsedDate);
                     }
                     catch
                     {
-                        Console.WriteLine($"\tInvalid date format for {line}");
+                        System.Console.WriteLine($"\tInvalid date format for {line}");
                     }
                 }
             }
