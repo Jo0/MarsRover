@@ -3,9 +3,10 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MarsRover.Core.Console; //TODO: Create WebApi Namespace
+using MarsRover.Core.WebApi;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using MarsRover.WebApi.Repository.EntityModels;
 
 namespace MarsRover.WebApi.Controllers
 {
@@ -13,23 +14,31 @@ namespace MarsRover.WebApi.Controllers
     [ApiController]
     public class FileController : ControllerBase
     {
+        private readonly MarsRoverContext _context;
+        public FileController(MarsRoverContext context)
+        {
+            _context = context;
+        }
+
         //Get Date Input file
         [HttpPost]
-        public async Task<IActionResult> UploadDateInputFile(IFormFile file)
+        public IActionResult UploadDateInputFile(IFormFile file)
         {
             //TODO: validate file
-            if(file.Length > 0)
+            if (file.Length > 0)
             {
-                using(MemoryStream stream = new MemoryStream())
+                List<string> dates = FileHandler.ReadDatesFromFile(file.OpenReadStream());
+
+                foreach (var date in dates)
                 {
-                    await file.CopyToAsync(stream);
-                    stream.Position = 0;
-
-                    List<DateTime> dates = FileHandler.ReadDatesFromFile(stream);
-
-                    return Ok(dates);
+                    if(!_context.PhotoDate.Where(x => x.EarthDate == date).Any())
+                    {
+                        _context.PhotoDate.Add(new PhotoDate{
+                            EarthDate = date
+                        });
+                    }
                 }
-            }   
+            }
 
             return Ok();
         }
