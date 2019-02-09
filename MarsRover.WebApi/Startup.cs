@@ -29,9 +29,9 @@ namespace MarsRover.WebApi
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-            services.AddDbContext<MarsRoverContext>(options =>
-                options.UseSqlite(Configuration.GetConnectionString("MarsRoverDb"))
-                );
+            services.AddEntityFrameworkSqlite()
+                    .AddDbContext<MarsRoverContext>(options =>
+                        options.UseSqlite(Configuration.GetConnectionString("MarsRoverDb")));
 
             services.AddCors(options =>
             {

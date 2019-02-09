@@ -15,6 +15,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MarsRover.Core\MarsRover.Core.csproj" />
-  </ItemGroup>  
-
+  </ItemGroup>
 </Project>

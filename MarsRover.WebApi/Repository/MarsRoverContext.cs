@@ -17,7 +17,16 @@ namespace MarsRover.WebApi.Repository.EntityModels
 
         public virtual DbSet<PhotoDate> PhotoDate { get; set; }
         public virtual DbSet<Rover> Rover { get; set; }
-        public virtual DbSet<RoverPhoto> RoverPhoto { get; set; }       
+        public virtual DbSet<RoverPhoto> RoverPhoto { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseSqlite("Data Source=mars-rover.db");
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,17 +34,17 @@ namespace MarsRover.WebApi.Repository.EntityModels
 
             modelBuilder.Entity<PhotoDate>(entity =>
             {
-                entity.Property(e => e.PhotoDateId).ValueGeneratedNever();
+                entity.Property(e => e.PhotoDateId).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<Rover>(entity =>
             {
-                entity.Property(e => e.RoverId).ValueGeneratedNever();
+                entity.Property(e => e.RoverId).ValueGeneratedOnAdd();
             });
 
             modelBuilder.Entity<RoverPhoto>(entity =>
             {
-                entity.Property(e => e.RoverPhotoId).ValueGeneratedNever();
+                entity.Property(e => e.RoverPhotoId).ValueGeneratedOnAdd();
 
                 entity.HasOne(d => d.PhotoDate)
                     .WithMany(p => p.RoverPhoto)

@@ -51,9 +51,3 @@ This application is not limited to a Windows environment. You will be able to bu
 5. Write photo pages to json
     * Serialize the photo pages by rover and write to `{executable_dir}/output.json` 
 
-#### MarsRover.WebApi
-
-
-   
-
-

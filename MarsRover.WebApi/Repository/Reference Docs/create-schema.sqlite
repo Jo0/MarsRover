@@ -1,5 +1,5 @@
 CREATE TABLE Rover(
-    RoverId INTEGER  PRIMARY KEY,
+    RoverId INTEGER PRIMARY KEY,
     Name TEXT,
     LandingDate TEXT,
     RecentPhotoDate TEXT,

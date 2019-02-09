@@ -4,34 +4,67 @@
 
 <head>
     <meta charset="utf-8">
-    <h1>Mars Rover</h1>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+
 </head>
+
 <body>
-    <h3>Upload Date File:</h3>
-    <form id="form-file">
+    <div style="margin-left:15px;">
+        <h1>Mars Rover</h1>
+        </br>
+        </br>
+        <h3>Upload Date File</h3>
+        <form id="upload-date-file-form">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <input id="file" type="file" name="file" accept="txt" />
+                </div>
+                <div class="col-auto my-1">
+                    <input type="submit" class="btn btn-primary" name="btn-file" value="Upload file"/>
+                </div>
+            </div>
+        </form>
+        </br>
+        <div id="file-results" class="row">
+
+        </div>
+        </br>
+        </br>
+        </br>
+        <h3>Rover Photos</h3>
+        <form id="rover-photo-request-form">
+            <div class="form-row align-items-center">
+                <div class="col-auto my-1">
+                    <span>Get photos for</span>
+                </div>
+                <div class="col-auto my-1">
+                    <select id="rover-list" class="form-control"></select>
+                </div>
+                <div class="col-auto my-1">
+                    <span>on</span>
+                </div>
+                <div class="col-auto my-1">
+                    <select id="photo-dates" class="form-control"></select>
+                </div>
+                <div class="col-auto my-1">
+                    <input type="submit" class="btn btn-primary" name="btn-photo" value="Get Photos" />
+                </div>
+            </div>
+        </form>
         
-        <input id="file" type="file" name="file" accept="txt" />
-        <input type="submit" name="btn-file" value="Upload file" />
-    </form>
-    <script>
-        // TODO: Move to js file, and structure
+        <div id="rover-image-gallery">
 
-        //Begin Upload Date File
-        let formData = new FormData();
-        const inputFile = document.getElementById('file');
-        inputFile.addEventListener('change', e => formData.append('file', e.currentTarget.files[0]));
-        const form = document.getElementById('form-file');
-        form.addEventListener('submit', e => {
-            e.preventDefault();
-            e.stopPropagation();
-            const request = new XMLHttpRequest();
-            request.open("POST", "https://localhost:5001/api/v1/file");
-            request.onload = () => console.log(JSON.parse(request.responseText)); // callback, lets do something with the response
-            request.send(formData);
-        });
+        </div>
+    </div>
 
-        //End Upload Date File
-    </script>
+    <script src="./script.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

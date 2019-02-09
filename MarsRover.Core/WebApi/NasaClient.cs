@@ -13,7 +13,7 @@ namespace MarsRover.Core.WebApi
         private static HttpClient _client = new HttpClient();
         private string _apiKey;
 
-        private string[] _rovers = { "curiosity", "opportunity", "spirit" };
+        public string[] rovers = { "curiosity", "opportunity", "spirit" };
 
         public NasaClient(string apiKey)
         {
@@ -40,7 +40,7 @@ namespace MarsRover.Core.WebApi
         {
             Dictionary<string, RoverManifest> roverManifests = new Dictionary<string, RoverManifest>();
 
-            foreach (var rover in _rovers)
+            foreach (var rover in rovers)
             {
                 RoverManifest manifest = await GetRoverManifest(rover);
 
@@ -51,6 +51,22 @@ namespace MarsRover.Core.WebApi
             }
 
             return roverManifests;
+        }
+
+         public async Task<RoverPhotoPage> GetRoverPhotos(string rover, DateTime date)
+        {
+            RoverPhotoPage photoPage = null;
+
+            var response = await _client.GetAsync($"https://api.nasa.gov/mars-photos/api/v1/rovers/{rover}/photos?earth_date={date.ToString("yyyy-M-d")}&api_key={_apiKey}");
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+
+                photoPage = JsonConvert.DeserializeObject<RoverPhotoPage>(responseContent);
+            }
+
+            return photoPage; //TODO: handle when request is not successful in a better way
         }
 
         public async Task<RoverPhotoPage> GetRoverPhotoPage(string rover, DateTime date, int page)
