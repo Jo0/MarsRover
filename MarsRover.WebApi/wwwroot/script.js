@@ -31,6 +31,7 @@ function postDateInputFile() {
 
 function showFileResults(uploadResults){
     var fileResultsTable = document.getElementById('file-results');
+    fileResultsTable.innerHTML = '';
     
     var readListDiv = document.createElement('div');
     readListDiv.className = 'col-sm-3';
