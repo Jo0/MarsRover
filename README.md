@@ -1,5 +1,14 @@
-## Mars Rover
+# Mars Rover
 
+- [Mars Rover](#mars-rover)
+  - [MarsRover.Console](#marsroverconsole)
+    - [Dependencies](#dependencies)
+    - [Build/Run](#buildrun)
+    - [How It Works](#how-it-works)
+  - [MarsRover.WebApi](#marsroverwebapi)
+    - [Dependencies](#dependencies-1)
+    - [Build/Run](#buildrun-1)
+    - [How It Works](#how-it-works-1)
 
 ## MarsRover.Console
 
@@ -52,7 +61,7 @@ This .NET Core console application pulls images taken by all rovers on a given d
 5. Write photo pages to json
     * Serialize the photo pages by rover and write to `{executable_dir}/output.json` 
 
-#### MarsRover.WebApi
+## MarsRover.WebApi
 
 ### Dependencies
 
