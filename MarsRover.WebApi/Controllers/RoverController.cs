@@ -70,7 +70,7 @@ namespace MarsRover.WebApi.Controllers
         }
 
         [HttpGet("{roverId}/photos")]
-        public IActionResult/*<IEnumerable<Repository.EntityModels.RoverPhoto>>*/ GetPhotosForRover(long roverId, [FromQuery]string photoDate)
+        public IActionResult GetPhotosForRover(long roverId, [FromQuery]string photoDate)
         {
             var rover = _context.Rover.Find(roverId);
             var photoDateEntity = _context.PhotoDate.AsNoTracking().Where(x => x.EarthDate == photoDate).SingleOrDefault();

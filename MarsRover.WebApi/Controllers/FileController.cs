@@ -22,7 +22,6 @@ namespace MarsRover.WebApi.Controllers
             _context = context;
         }
 
-
         [HttpGet]
         public ActionResult<IEnumerable<PhotoDate>> GetDates()
         {
