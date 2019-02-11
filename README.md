@@ -69,6 +69,8 @@ This .NET Core console application pulls images taken by all rovers on a given d
 
 ### Build/Run
 
+LIVE DEMO: [Here](http://skankin.co/mars-rover)
+
 * From Visual Studio
   * Open `MarsRover.sln`
   * Set `MarsRover.WebApi` as default startup project
